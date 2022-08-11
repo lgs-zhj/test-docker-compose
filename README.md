@@ -2,7 +2,7 @@
 配置wordpress数据库信息>>vi html/wp-config.php
 
 配置启动文件dockers-compose.yml 
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+~~~shell
 version: '3'
 services:
   phpfpm:   ##fpm-php服务
@@ -59,6 +59,6 @@ services:
 networks:
   test-network:
     external: true
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~shell
 启动容器：docker-compose （需要docker环境和docker-compose，自行百度）
 浏览器访问http://真机ip
