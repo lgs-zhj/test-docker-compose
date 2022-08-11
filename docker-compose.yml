@@ -1,0 +1,57 @@
+version: '3'
+services:
+  phpfpm:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    image: fpm-php
+    container_name: phpfpm
+    restart: always
+    volumes:
+      - ./html:/var/www/html
+    ports:
+      - "9000:9000"
+    stdin_open: true
+    networks:
+      - test-network
+  mysql-db:
+    container_name: mysql-docker
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSDWORD: lgs@2022
+      MYSQL_ALLOW_EMPTY_PASSWORD: 0
+      MYSQL_RANDOM_ROOT_PASSWORD: 0
+     #MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./config:/etc/mysql/conf.d
+    networks:
+      - test-network
+  nginx:
+    container_name: nginx
+    image: nginx:1.22.0
+    restart: always
+    tty: true
+    links:
+      - phpfpm:phpfmp
+    environment:
+      NGINX_ENV: TZ "Asia/Shanghai"
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./html:/usr/share/nginx/html
+     #- ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf.d:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+    networks:
+      - test-network
+networks:
+  test-network:
+    external: true
+

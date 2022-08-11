@@ -1,0 +1,17 @@
+version: "3"
+services:
+  phpfpm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fpm-php
+    container_name: phpfpm
+    restart: always
+    volumes:
+      - /data/test/html:/var/www/html
+    ports:
+      - "9000:9000"
+    stdin_open: true
+    networks:
+      - test-network
+
