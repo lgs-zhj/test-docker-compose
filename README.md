@@ -59,6 +59,6 @@ services:
 networks:
   test-network:
     external: true
-~~~shell
-启动容器：docker-compose （需要docker环境和docker-compose，自行百度）
+~~~
+启动容器：docker-compose  up（需要docker环境和docker-compose，自行百度）
 浏览器访问http://真机ip
